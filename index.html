@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulación de Ecuaciones - [Tus Nombres y Código]</title>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            font-family: Arial, sans-serif;
+            /* Aquí se define la imagen de fondo */
+            background-image: url('fondo.png');
+            /* Ajustes adicionales opcionales */
+            background-size: cover; /* Escala la imagen para cubrir toda la pantalla */
+            background-repeat: no-repeat; /* Evita que la imagen se repita */
+            background-position: center; /* Centra la imagen en la pantalla */
+        }
+
+        h1 {
+            text-align: center;
+            color:antiquewhite;
+            text-shadow: 
+                -1px -1px 0 #000,  /* Sombra hacia la esquina superior izquierda */
+                1px -1px 0 #000,   /* Sombra hacia la esquina superior derecha */
+                -1px 1px 0 #000,   /* Sombra hacia la esquina inferior izquierda */
+                1px 1px 0 #000;    /* Sombra hacia la esquina inferior derecha */
+            font-family: Arial, sans-serif;
+        }
+
+        #equation {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        #controls {
+            text-align: center;
+            margin-top: 20px;
+
+        }
+
+        table {
+            width: 50%;
+            margin: auto;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th,
+        td {
+            border: 1px solid black;
+            padding: 10px;
+            text-align: center;
+        }
+
+        #chart_div {
+            width: 600px;
+            height: 400px;
+            margin: auto;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>Simulación de Ecuaciones - 
+        [Santiago Gonzalez Olarte y Sebastian Castañeda]</h1>
+
+    <div id="equation">
+        <!-- Aquí insertamos la imagen de la ecuación -->
+        <img src="Imagen_ecuacion.png" alt="Ecuación">
+    </div>
+
+    <div id="controls">
+        <button onclick="procesar()">Procesar</button>
+    </div>
+
+    <table>
+        <tr>
+            <th>Error</th>
+            <th>Totales</th>
+            <th>Porcentaje</th>
+        </tr>
+        <tr>
+            <td>Total de errores de arcoseno</td>
+            <td id="error-arcsin">0</td>
+            <td id="percent-arcsin">0%</td>
+        </tr>
+        <tr>
+            <td>Total de errores de arcocoseno</td>
+            <td id="error-arccos">0</td>
+            <td id="percent-arccos">0%</td>
+        </tr>
+        <tr>
+            <td>Total de errores de raíz cuadrada</td>
+            <td id="error-sqrt">0</td>
+            <td id="percent-sqrt">0%</td>
+        </tr>
+        <tr>
+            <td>Total de errores de división</td>
+            <td id="error-division">0</td>
+            <td id="percent-division">0%</td>
+        </tr>
+        <tr>
+            <td>Total de errores de logaritmo natural</td>
+            <td id="error-ln">0</td>
+            <td id="percent-ln">0%</td>
+        </tr>
+    </table>
+
+    <!-- Gráfico estadístico -->
+    <div id="chart_div"></div>
+
+    <script>
+        google.charts.load('current', { 'packages': ['corechart'] });
+
+        // Función para simular el proceso de cálculo
+        function procesar() {
+            let totalArcsin = 0;
+            let totalArccos = 0;
+            let totalSqrt = 0;
+            let totalDivision = 0;
+            let totalLn = 0;
+            let totalErrores = 0;
+
+            for (let i = 0; i < 1000; i++) {
+                let huboError = false;
+
+                // Generar variables aleatorias entre -1 y 1
+                let a = Math.random() * 2 - 1;
+                let b = Math.random() * 2 - 1;
+                let c = Math.random() * 2 - 1;
+                let d = Math.random() * 2 - 1;
+                let e = Math.random() * 2 - 1;
+                let p = Math.random() * 2 - 1;
+                let g = Math.random() * 2 - 1;
+                let u = Math.random() * 2 - 1;
+                let iVar = Math.random() * 2 - 1;
+                let h = Math.random() * 2 - 1;
+                let k = Math.random() * 2 - 1;
+
+                try {
+                    // Simulación de la nueva ecuación con ajustes
+                    let Y = (
+                        (Math.asin(a / Math.sqrt(b)) + Math.asin(c / Math.sqrt(d)) + Math.log(e)) /
+                        (Math.acos(g / h) + Math.acos(u / iVar) + Math.log(p))
+                    ) / (
+                        (Math.sqrt(b / d) + Math.sqrt(k / h)) + 
+                        (1 / (iVar * u)) + 
+                        (1 / (b * d))
+                    );
+
+                    // Verificar si hay errores y contarlos
+                    if (isNaN(Y)) {
+                        huboError = true;
+                        if (isNaN(Math.asin(a / Math.sqrt(b))) || isNaN(Math.asin(c / Math.sqrt(d)))) totalArcsin++;
+                        if (isNaN(Math.acos(g / h)) || isNaN(Math.acos(u / iVar))) totalArccos++;
+                        if (isNaN(Math.sqrt(b / d)) || isNaN(Math.sqrt(k / h))) totalSqrt++;
+                        if (iVar === 0 || u === 0 || b === 0 || d === 0) totalDivision++;
+                        if (e <= 0 || p <= 0) totalLn++;
+                    }
+                } catch (error) {
+                    huboError = true;
+                    if (isNaN(Math.asin(a / Math.sqrt(b))) || isNaN(Math.asin(c / Math.sqrt(d)))) totalArcsin++;
+                    if (isNaN(Math.acos(g / h)) || isNaN(Math.acos(u / iVar))) totalArccos++;
+                    if (isNaN(Math.sqrt(b / d)) || isNaN(Math.sqrt(k / h))) totalSqrt++;
+                    if (iVar === 0 || u === 0 || b === 0 || d === 0) totalDivision++;
+                    if (e <= 0 || p <= 0) totalLn++;
+                }
+
+                // Solo contar un error por iteración
+                if (huboError) {
+                    totalErrores++;
+                }
+            }
+
+            // Actualizar la tabla
+            document.getElementById('error-arcsin').textContent = totalArcsin;
+            document.getElementById('error-arccos').textContent = totalArccos;
+            document.getElementById('error-sqrt').textContent = totalSqrt;
+            document.getElementById('error-division').textContent = totalDivision;
+            document.getElementById('error-ln').textContent = totalLn;
+
+            // Calcular porcentajes
+            document.getElementById('percent-arcsin').textContent = ((totalArcsin / totalErrores) * 100).toFixed(2) + '%';
+            document.getElementById('percent-arccos').textContent = ((totalArccos / totalErrores) * 100).toFixed(2) + '%';
+            document.getElementById('percent-sqrt').textContent = ((totalSqrt / totalErrores) * 100).toFixed(2) + '%';
+            document.getElementById('percent-division').textContent = ((totalDivision / totalErrores) * 100).toFixed(2) + '%';
+            document.getElementById('percent-ln').textContent = ((totalLn / totalErrores) * 100).toFixed(2) + '%';
+
+            // Dibujar gráfico de pastel
+            drawChart([
+                ['Tipo de error', 'Cantidad'],
+                ['Errores de arcoseno', totalArcsin],
+                ['Errores de arcocoseno', totalArccos],
+                ['Errores de raíz cuadrada', totalSqrt],
+                ['Errores de división', totalDivision],
+                ['Errores de logaritmo natural', totalLn],
+            ]);
+        }
+
+        // Función para dibujar gráfico
+        function drawChart(dataArray) {
+            google.charts.setOnLoadCallback(function () {
+                var data = google.visualization.arrayToDataTable(dataArray);
+
+                var options = {
+                    title: 'Distribución de Errores',
+                    is3D: true,
+                };
+
+                var chart = new google.visualization.PieChart(document.getElementById('chart_div'));
+                chart.draw(data, options);
+            });
+        }
+    </script>
+</body>
+
+</html>

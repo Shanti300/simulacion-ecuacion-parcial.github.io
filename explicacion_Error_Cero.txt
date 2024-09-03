@@ -1,0 +1,22 @@
+Por qué la división no da error en 1,000,000 de ciclos:
+El código revisa las divisiones específicas:
+
+1 / (iVar * u)
+1 / (b * d)
+El código usa números aleatorios generados con Math.random() que se encuentran
+en el rango [−1,1]. Es extremadamente improbable que Math.random() genere exactamente 
+el valor 0 en ese rango. Esto se debe a la naturaleza de la generación de números
+aleatorios en los ordenadores, que sigue una distribución continua y no incluye 
+valores exactos como 0 (en la mayoría de los casos) salvo que el rango se configure 
+explícitamente para ello.
+
+Por lo tanto, aunque la posibilidad de que iVar, u, b o d sean exactamente cero existe
+matemáticamente, en la práctica, es tan improbable que es casi imposible que ocurra en
+1,000,000 de ciclos e incluso mas.
+
+Conclusión:
+La ecuación puede generar errores en funciones como el arcoseno, arcocoseno, 
+raíz cuadrada y logaritmo natural debido a las restricciones de estas funciones.
+No es común que el error de división ocurra porque la probabilidad de que alguna 
+variable sea exactamente cero es muy baja cuando los valores se generan aleatoriamente 
+en el rango [−1,1].
